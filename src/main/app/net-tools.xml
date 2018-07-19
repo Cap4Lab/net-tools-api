@@ -29,7 +29,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
       </ss:authentication-manager> 
     </spring:beans>
     
-    <apikit:config name="net-tools-config" raml="net-tools.raml" consoleEnabled="true" consolePath="console" doc:name="Router" />
+    <apikit:config name="net-tools-config" raml="net-tools.raml" consoleEnabled="false" consolePath="console" doc:name="Router" keepRamlBaseUri="false"/>
     <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="${http.port}" doc:name="HTTP Listener Configuration"/>
     <flow name="net-tools-main">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/api/*" doc:name="HTTP"/>
@@ -71,6 +71,10 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
     </flow>
     <flow name="get:/curl:net-tools-config">
         <component class="com.mulesoft.tool.vpc.Curl" doc:name="Curl"/>
+    </flow>
+    <flow name="get:/logs:net-tools-config">
+        <component class="com.mulesoft.tool.logs.ListLogs" doc:name="Java"/>
+        <logger level="INFO" doc:name="Logger"/>
     </flow>    
     <apikit:mapping-exception-strategy name="vpcUtil-apiKitGlobalExceptionMapping">
         <apikit:mapping statusCode="404">

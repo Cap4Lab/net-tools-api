@@ -125,4 +125,23 @@ securitySchemes:
         body: 
           text/plain:
             example: |
-              curl: (7) Failed to connect to 10.200.27.15 port 443: Timed out             
+              curl: (7) Failed to connect to 10.200.27.15 port 443: Timed out
+/logs:
+  get:
+    description: Gets the list of all files in the log directory of mule runtime
+    responses:
+      200:
+        body:
+          application/json:
+  /{fileName}:
+    uriParameters: 
+      fileName:
+        type: String
+        description: The name of the log file to download
+    get:
+      description: Downloads the specified log file
+      responses:
+        200:
+          body:
+            binary/octet:
+       
