@@ -12,7 +12,8 @@ public class GetLogFile implements Callable {
 
 	@Override
 	public Object onCall(MuleEventContext eventContext) throws Exception {
-		Path path = Paths.get(System.getProperty("mule.home"), "logs",eventContext.getMessage().getProperty("fileName", PropertyScope.INVOCATION));       
+		String filename = eventContext.getMessage().getProperty("fileName", PropertyScope.INVOCATION);
+		Path path = Paths.get(System.getProperty("mule.home"), "logs", filename.replace("/", "").replace("\\", ""));       
 		byte[] fileBytes = Files.readAllBytes(path);
 		return fileBytes;
 	}
